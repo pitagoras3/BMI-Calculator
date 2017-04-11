@@ -1,4 +1,4 @@
-<p>BMI Calculator Android App</p>
+#BMI Calculator Android App
 
 Android app created for Mobile and Build-in Systems course on my studies.
 Main function of this app is (of course) counting BMI.
