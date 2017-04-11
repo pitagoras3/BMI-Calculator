@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private ShareActionProvider mShareActionProvider;
     private int indexOfCheckedItemInMenu;
     private boolean isItFirstBMICount;
-    public static final int metricSystemIndex = 1;
-    public static final int imperialSystemIndex = 2;
+    public static final int METRIC_SYSTEM_INDEX = 1;
+    public static final int IMPERIAL_SYSTEM_INDEX = 2;
 
     //Shared preferences for save ability
     public static final String SHARED_PREFERENCES = "MyPreferencesFile";
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         isItFirstBMICount = true;
-        indexOfCheckedItemInMenu = metricSystemIndex;                               //App starts with metric system loaded
+        indexOfCheckedItemInMenu = METRIC_SYSTEM_INDEX;                               //App starts with metric system loaded
 
         restoreSavedData();
     }
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences settings = getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE);
         String massString = settings.getString("massString", "");
         String heightString = settings.getString("heightString", "");
-        int bmiCalculator = settings.getInt("bmiCalculator", metricSystemIndex);
+        int bmiCalculator = settings.getInt("bmiCalculator", METRIC_SYSTEM_INDEX);
         massET.setText(massString);
         heightET.setText(heightString);
         indexOfCheckedItemInMenu = bmiCalculator;
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private int itemIdByIndexInMenu(){
-        if(indexOfCheckedItemInMenu == metricSystemIndex){
+        if(indexOfCheckedItemInMenu == METRIC_SYSTEM_INDEX){
             return R.id.metricSystemItemInMenu;
         }
         else{
@@ -166,10 +166,10 @@ public class MainActivity extends AppCompatActivity {
     public void onGroupItemClick(MenuItem item){
         switch(item.getItemId()){
             case R.id.metricSystemItemInMenu:
-                indexOfCheckedItemInMenu = metricSystemIndex;
+                indexOfCheckedItemInMenu = METRIC_SYSTEM_INDEX;
                 break;
             case R.id.imperialSystemItemInMenu:
-                indexOfCheckedItemInMenu = imperialSystemIndex;
+                indexOfCheckedItemInMenu = IMPERIAL_SYSTEM_INDEX;
                 break;
         }
         item.setChecked(true);
@@ -197,11 +197,11 @@ public class MainActivity extends AppCompatActivity {
     //Set hints depending on measure system
     private void setEditTextsHints(int index){
         switch (index){
-            case metricSystemIndex:
+            case METRIC_SYSTEM_INDEX:
                 massET.setHint(R.string.kg);
                 heightET.setHint(R.string.m);
                 break;
-            case imperialSystemIndex:
+            case IMPERIAL_SYSTEM_INDEX:
                 massET.setHint(R.string.lb);
                 heightET.setHint(R.string.in);
                 break;
@@ -278,10 +278,10 @@ public class MainActivity extends AppCompatActivity {
 
     //Depending on indexOfCheckedItemInMenu field return new BMI calculator
     private IBMICalc getBMICalc(){
-        if(indexOfCheckedItemInMenu == metricSystemIndex){
+        if(indexOfCheckedItemInMenu == METRIC_SYSTEM_INDEX){
             return new BMICalcForKg();
         }
-        else if (indexOfCheckedItemInMenu == imperialSystemIndex){
+        else if (indexOfCheckedItemInMenu == IMPERIAL_SYSTEM_INDEX){
             return new BMICalcForPound();
         }
         else{
